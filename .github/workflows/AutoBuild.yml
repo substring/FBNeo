@@ -8,7 +8,7 @@ jobs:
     runs-on: ${{ matrix.platform.os }}
     defaults:
       run:
-        shell: ${{ matrix.platform.shell}}{0}
+        shell: ${{ matrix.platform.shell}} {0}
 
     strategy:
       matrix:
