@@ -23,7 +23,7 @@ jobs:
       - platform: { name: SDL1.2, os: ubuntu-20.04 }
         config: { name: Frameworks, makeopts: sdl }
 
-steps:
+  steps:
     - name: Install Windows MSYS2 dependencies
       if: matrix.platform.name == 'Windows'
       uses: msys2/setup-msys2@v2
