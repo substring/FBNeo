@@ -25,7 +25,7 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         update: true
-        install: msys2-devel base-devel binutils mingw-w64-${{ matrix.platform.arch }}-toolchain
+        install: msys2-devel base-devel binutils mingw-w64-${{ matrix.platform.arch }}-toolchain mingw-w64-${{ matrix.platform.arch }}-nasm
         msystem: ${{matrix.platform.msys}}
 
     - name: Install Linux dependencies
