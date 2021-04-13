@@ -6,14 +6,14 @@ jobs:
   AutoBuild:
     name: ${{ matrix.platform.name }} ${{ matrix.config.name }}
     runs-on: ${{ matrix.platform.os }}
-#    defaults:
-#      run:
-#        shell: ${{ matrix.platform.shell}} {0}
+    defaults:
+      run:
+        shell: ${{ matrix.platform.shell}} {0}
 
     strategy:
       matrix:
         platform:
-        - { name: Windows,     os: windows-2019, shell: msys2, makebin: mingw32-make.exe, makeopts: mingw510 SKIPDEPEND=1 USE_UCRT=1}
+        - { name: Windows,     os: windows-2019, shell: msys2, makeopts: mingw510 SKIPDEPEND=1 USE_UCRT=1 BUILD_X64_EXE=1 }
         #- { name: Linux GCC,   os: ubuntu-20.04, shell: bash,  makeopts: sdl2 }
         #- { name: MacOS XCode, os: macos-latest }
 
@@ -29,4 +29,4 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build FBNeo
       run: |
-        ${{matrix.platform.makebin}} -j2 RELEASEBUILD=1 ${{matrix.platform.makeopts}}
+        make -j$(nproc) RELEASEBUILD=1 ${{matrix.platform.makeopts}}
