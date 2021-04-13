@@ -13,8 +13,8 @@ jobs:
     strategy:
       matrix:
         platform:
-        - { name: Windows x64,   os: windows-2019, shell: msys2, makeopts: mingw510 USE_UCRT=1 BUILD_X64_EXE=1, msys: MINGW64 }
-        - { name: Windows x32,   os: windows-2019, shell: msys2, makeopts: mingw510 USE_UCRT=1, msys: MINGW32 }
+        - { name: Windows x64,   os: windows-2019, shell: msys2, makeopts: mingw510 USE_UCRT=1 BUILD_X64_EXE=1, arch: x86_64, msys: MINGW64 }
+        - { name: Windows x32,   os: windows-2019, shell: msys2, makeopts: mingw510 USE_UCRT=1, arch: i686, msys: MINGW32 }
         - { name: Linux SDL 2,   os: ubuntu-20.04, shell: bash,  makeopts: sdl2}
         - { name: Linux SDL 1.2, os: ubuntu-20.04, shell: bash,  makeopts: sdl}
         #- { name: MacOS XCode, os: macos-latest }
@@ -25,7 +25,7 @@ jobs:
       uses: msys2/setup-msys2@v2
       with:
         update: true
-        install: bash git base-devel make mingw-w64-x86_64-gcc mingw-w64-x86_64-python
+        install: msys2-devel base-devel binutils mingw-w64-${{ matrix.platform.arch }}-toolchain
         msystem: ${{matrix.platform.msys}}
 
     - name: Install Linux dependencies
@@ -38,4 +38,4 @@ jobs:
 
     - name: Build FBNeo
       run: |
-        make -j$(nproc) RELEASEBUILD=1 SKIPDEPEND=1 ${{matrix.platform.makeopts}} ${{matrix.config.makeopts}}
+        make -j$(nproc) RELEASEBUILD=1 SKIPDEPEND=1 ${{matrix.platform.makeopts}}
