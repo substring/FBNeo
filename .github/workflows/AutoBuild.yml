@@ -13,8 +13,8 @@ jobs:
     strategy:
       matrix:
         platform:
-        - { name: Windows,     os: windows-2019, shell: msys2, makeopts: mingw510 SKIPDEPEND=1 USE_UCRT=1 BUILD_X64_EXE=1 }
-        #- { name: Linux GCC,   os: ubuntu-20.04, shell: bash,  makeopts: sdl2 }
+        - { name: Windows,     os: windows-2019, shell: msys2, makeopts: mingw510 USE_UCRT=1 BUILD_X64_EXE=1 }
+        - { name: Linux GCC,   os: ubuntu-20.04, shell: bash,  makeopts: sdl2 }
         #- { name: MacOS XCode, os: macos-latest }
 
 
@@ -26,7 +26,13 @@ jobs:
         update: true
         install: bash git base-devel make mingw-w64-x86_64-gcc mingw-w64-x86_64-python
 
+    - name: Install Linux dependencies
+      run: |
+        sudo apt-get -y update
+        sudo apt-get -y install libsdl2-dev libsdl2-image-dev
+
     - uses: actions/checkout@v2
+
     - name: Build FBNeo
       run: |
-        make -j$(nproc) RELEASEBUILD=1 ${{matrix.platform.makeopts}}
+        make -j$(nproc) RELEASEBUILD=1 SKIPDEPEND=1 ${{matrix.platform.makeopts}}
