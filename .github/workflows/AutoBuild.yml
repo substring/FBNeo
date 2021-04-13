@@ -13,19 +13,14 @@ jobs:
     strategy:
       matrix:
         platform:
-        - { name: Windows, os: windows-2019, shell: msys2, makeopts: mingw510 USE_UCRT=1 BUILD_X64_EXE=1 }
-        - { name: Linux,   os: ubuntu-20.04, shell: bash}
+        - { name: Windows x64,   os: windows-2019, shell: msys2, makeopts: mingw510 USE_UCRT=1 BUILD_X64_EXE=1 }
+        - { name: Linux SDL2,    os: ubuntu-20.04, shell: bash,  makeopts: sdl2}
+        - { name: Linux SDL 1.2, os: ubuntu-20.04, shell: bash,  makeopts: sdl}
         #- { name: MacOS XCode, os: macos-latest }
-
-        include:
-        - platform: { name: SDL2, os: ubuntu-20.04 }
-          config: { name: Frameworks, makeopts: sdl2 }
-        - platform: { name: SDL1.2, os: ubuntu-20.04 }
-          config: { name: Frameworks, makeopts: sdl }
 
     steps:
     - name: Install Windows MSYS2 dependencies
-      if: matrix.platform.name == 'Windows'
+      if: runner.os == 'Windows'
       uses: msys2/setup-msys2@v2
       with:
         update: true
