@@ -13,8 +13,9 @@ jobs:
     strategy:
       matrix:
         platform:
-        - { name: Windows x64,   os: windows-2019, shell: msys2, makeopts: mingw510 USE_UCRT=1 BUILD_X64_EXE=1 }
-        - { name: Linux SDL2,    os: ubuntu-20.04, shell: bash,  makeopts: sdl2}
+        - { name: Windows x64,   os: windows-2019, shell: msys2, makeopts: mingw510 USE_UCRT=1 BUILD_X64_EXE=1, msys: MINGW64 }
+        - { name: Windows x32,   os: windows-2019, shell: msys2, makeopts: mingw510 USE_UCRT=1, msys: MINGW32 }
+        - { name: Linux SDL 2,   os: ubuntu-20.04, shell: bash,  makeopts: sdl2}
         - { name: Linux SDL 1.2, os: ubuntu-20.04, shell: bash,  makeopts: sdl}
         #- { name: MacOS XCode, os: macos-latest }
 
@@ -25,6 +26,7 @@ jobs:
       with:
         update: true
         install: bash git base-devel make mingw-w64-x86_64-gcc mingw-w64-x86_64-python
+        msystem: ${{matrix.platform.msys}}
 
     - name: Install Linux dependencies
       if: runner.os == 'Linux'
