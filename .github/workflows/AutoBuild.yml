@@ -27,6 +27,7 @@ jobs:
         install: bash git base-devel make mingw-w64-x86_64-gcc mingw-w64-x86_64-python
 
     - name: Install Linux dependencies
+      if: matrix.platform.name == 'Linux'
       run: |
         sudo apt-get -y update
         sudo apt-get -y install libsdl2-dev libsdl2-image-dev
