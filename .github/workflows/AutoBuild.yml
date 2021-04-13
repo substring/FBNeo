@@ -14,7 +14,7 @@ jobs:
       matrix:
         platform:
         - { name: Windows,     os: windows-2019, shell: msys2, makeopts: mingw510 USE_UCRT=1 BUILD_X64_EXE=1 }
-        - { name: Linux GCC,   os: ubuntu-20.04, shell: bash,  makeopts: sdl2 }
+        - { name: Linux,   os: ubuntu-20.04, shell: bash,  makeopts: sdl2 }
         #- { name: MacOS XCode, os: macos-latest }
 
 
