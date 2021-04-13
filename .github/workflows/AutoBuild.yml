@@ -6,9 +6,9 @@ jobs:
   AutoBuild:
     name: ${{ matrix.platform.name }} ${{ matrix.config.name }}
     runs-on: ${{ matrix.platform.os }}
-    defaults:
-      run:
-        shell: ${{ matrix.platform.shell}} {0}
+#    defaults:
+#      run:
+#        shell: ${{ matrix.platform.shell}} {0}
 
     strategy:
       matrix:
