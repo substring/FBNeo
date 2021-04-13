@@ -17,13 +17,13 @@ jobs:
         - { name: Linux,   os: ubuntu-20.04, shell: bash}
         #- { name: MacOS XCode, os: macos-latest }
 
-    include:
+      include:
       - platform: { name: SDL2, os: ubuntu-20.04 }
         config: { name: Frameworks, makeopts: sdl2 }
       - platform: { name: SDL1.2, os: ubuntu-20.04 }
         config: { name: Frameworks, makeopts: sdl }
 
-  steps:
+    steps:
     - name: Install Windows MSYS2 dependencies
       if: matrix.platform.name == 'Windows'
       uses: msys2/setup-msys2@v2
